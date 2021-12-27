@@ -3152,6 +3152,7 @@ const _animateFooter = () => {
    * Displayed text
    */
   const _content = [
+    " - No One Absolutely no one can close the door that GOD has open for you - ",
     "Created and developed by @hari from scractch to production",
     "No copyright issues. Feel free to copy anything and everything from this website.",
     "If you need any help, ping me ! @ https://github.com/hariomgola",
