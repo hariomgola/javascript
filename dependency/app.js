@@ -1,4 +1,7 @@
 /**
+ * Created and developed by @hari from scractch to production
+ */
+/**
  * Creating main content
  */
 const _IntroductionToJS = () => {
@@ -3131,11 +3134,88 @@ const _navigation = (event) => {
  */
 const _copyright = () => {
   let _cright = document.getElementsByClassName("copyright")[0];
-  let _line = document.createElement("p");
+  let _line = document.createElement("div");
   _line.className = "copyrightline";
-  _line.innerHTML =
-    "Copyright @ 2021 Hariom Gola. All Right Reserved Not to be Used for Making profit";
+  _line.id = "copyrightline";
   _cright.appendChild(_line);
+  let _cursor = document.createElement("div");
+  _cursor.className = "cursor";
+  _cursor.id = "cursor";
+  _cright.appendChild(_cursor);
+};
+
+/**
+ * Const Animate footer
+ */
+const _animateFooter = () => {
+  /**
+   * Displayed text
+   */
+  const _content = [
+    "Created and developed by @hari from scractch to production",
+    "No copyright issues. Feel free to copy anything and everything from this website.",
+    "If you need any help, ping me ! @ https://github.com/hariomgola",
+    "Oh God that's it, Let me move you to the desired notes",
+  ];
+
+  /**
+   * Defining global variable here
+   */
+  let _part = 0; // current sentence
+  let _partIndex = 0; // number of character in sentence
+  let _interval; // hold the settimeout time
+  let _element = document.getElementById("copyrightline"); // element that hold the text
+  let _cursor = document.getElementById("cursor"); // cursor element
+
+  /**
+   * Typing effect
+   */
+  const _typing = () => {
+    let text = _content[_part].substring(0, _partIndex + 1);
+    _element.innerHTML = text;
+    _partIndex++;
+
+    // logic after full sentence is completed
+    if (text == _content[_part]) {
+      // Hiding the cursor
+      _cursor.style.display = "none";
+      clearInterval(_interval);
+      // creating a settimeout
+      setTimeout(() => {
+        _interval = setInterval(_deleting, 50);
+      }, 1000);
+    }
+  };
+  /**
+   * Deleting effect
+   */
+  const _deleting = () => {
+    let text = _content[_part].substring(0, _partIndex - 1);
+    _element.innerHTML = text;
+    _partIndex--;
+
+    // logic after full sentence is deleted
+    if (text == "") {
+      clearInterval(_interval);
+
+      // logic to display the array text in loop
+      if (_part == _content.length - 1) {
+        _part = 0;
+      } else {
+        _part++;
+      }
+      _partIndex = 0;
+
+      // logic to display the new sentence
+      setTimeout(() => {
+        _cursor.style.display = "inline-block";
+        _interval = setInterval(_typing, 100);
+      }, 200);
+    }
+  };
+
+  // starting the typing effect onload functionality
+  _interval = setInterval(_typing, 100);
 };
 
 /**
@@ -3147,7 +3227,14 @@ const startApplication = () => {
     _createNavigation();
     _landupContent();
     _copyright();
-  }, 10);
+    setTimeout(() => {
+      _animateFooter();
+    }, 100);
+  }, 100);
 };
 
 startApplication();
+
+/**
+ * Created and developed by @hari from scractch to production
+ */

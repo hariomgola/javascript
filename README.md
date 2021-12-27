@@ -8,7 +8,10 @@ This repository contains some good JavaScript notes.
  Project is deployed on above mentioned url. Please visit to see its working.
 
 ## Project Status
-    - Completed
+  - :bell: Completed
+
+## Deployment Status
+  - :green_circle: Online
 
 ## Made with :heart:
  - portfolio :computer: https://hariomgola.github.io/
