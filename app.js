@@ -1,7 +1,7 @@
 /**
  * Creating main content
  */
-const _IntroductionToCSS = () => {
+const _IntroductionToJS = () => {
   let _pre = document.createElement("pre");
   _pre.innerHTML = `
       # JavaScript
@@ -2942,7 +2942,7 @@ const _createNavigation = () => {
   _sideNavdiv.className = "sidenav";
 
   // storing the side scroll value
-  const _navManu = [
+  const _navMenu = [
     "JavaScript Notes",
     "Introduction to JavaScript",
     "Conditional Operators",
@@ -2963,14 +2963,152 @@ const _createNavigation = () => {
     "Request - FETCH",
     "What Next ¯_(ツ)_/¯",
   ];
-  for (let i = 0; i < _navManu.length; i++) {
+  for (let i = 0; i < _navMenu.length; i++) {
     let _aNav = document.createElement("button");
     _aNav.id = "navbutton";
     _aNav.className = "navbutton";
     _aNav.onclick = function (event) {
       clickFunctionality(event);
     };
+    // _aNav.href = "#" + _navMenu[i];
+    _aNav.appendChild(document.createTextNode(`${_navMenu[i]}`));
+    _sideNavdiv.appendChild(_aNav);
   }
-  _aNav.appendChild(document.createTextNode(`${_navMenu[i]}`));
-  _sideNavdiv.appendChild(_aNav);
+  let root = document.getElementsByClassName("root")[0];
+  root.appendChild(_sideNavdiv);
 };
+
+/**
+ * Rendering the main content in function
+ */
+const _mainContentRendered = (content) => {
+  const _navMenu = [
+    "JavaScript Notes",
+    "Introduction to JavaScript",
+    "Conditional Operators",
+    "Function",
+    "Scope &amp; Blocks",
+    "Arrays",
+    "Loops",
+    "Higher Order Functiuon",
+    "Iterators",
+    "Object",
+    "Advance Object",
+    "Classes",
+    "Transpilation",
+    "Module Export/Import",
+    "Promises",
+    "Async/Await",
+    "Request - GET/POST",
+    "Request - FETCH",
+    "What Next ¯_(ツ)_/¯",
+  ];
+  const _navMenuFunction = [
+    _IntroductionToJS,
+    _ConditionalOperators,
+    _Function,
+    _ScopeBlock,
+    _Array,
+    _Loop,
+    _HigherOrderFunction,
+    _Iterators,
+    _Object,
+    _AdvanceObject,
+    _Classes,
+    _Transpilation,
+    _Classes,
+    _Transpilation,
+    _ModuleExportImport,
+    _Promises,
+    _AsyncAwait,
+    _RequestGetPost,
+    _RequestFetch,
+    _WhatNext,
+  ];
+  if (content == _navMenu[0]) {
+  } else {
+    let _main = document.getElementsByClassName("main")[0];
+    let _div = document.createElement("div");
+    _div.id = content;
+    _div.className = "maincontent";
+    let _h1 = document.createElement("h1");
+    _h1.innerHTML = content;
+    _h1.id = "heading";
+    let _ndiv = document.createElement("div");
+    _ndiv.id = "pre";
+    // Implementing the children node
+    _main.appendChild(_div);
+    document.getElementsByClassName("maincontent")[0].appendChild(_h1);
+    document.getElementById(`${content}`).appendChild(_ndiv);
+    console.warn(`|>_ Rendering ${content}`);
+    // checking condition for rendering
+    let _conditionCall;
+    for (let i = 1; i < _navMenu.length; i++) {
+      if (content == _navMenu[i]) {
+        _conditionCall = _navMenuFunction[i - 1];
+        break;
+      }
+    }
+    console.log("------->", _conditionCall);
+    document.getElementById(`pre`).appendChild(_conditionCall());
+  }
+};
+
+/**
+ * Creating click functionality
+ */
+const clickFunctionality = (event) => {
+  _deleteElement();
+  _navigation(event);
+  console.warn(`Rendering the element ----> ${event.target.innerHTML} `);
+  _mainContentRendered(event.target.innerHTML);
+};
+
+/**
+ * Deleting the DOM element attribute
+ */
+const _deleteElement = () => {
+  try {
+    let _div = document.getElementsByClassName("maincontent")[0];
+    _div.remove();
+  } catch (e) {
+    console.warn(`Element not present to delete`);
+  }
+};
+
+/**
+ * For Navigation Active functionality
+ */
+const _navigation = (event) => {
+  let _nav = document.getElementsByClassName("navbutton active");
+  for (let i = 0; i < _nav.length; i++) {
+    _nav[0].className = "navbutton";
+  }
+  event.currentTarget.className += " active";
+};
+
+/**
+ * Creating copyright content
+ */
+const _copyright = () => {
+  let _cright = document.getElementsByClassName("copyright")[0];
+  let _line = document.createElement("p");
+  _line.className = "copyrightline";
+  _line.innerHTML =
+    "Copyright @ 2021 Hariom Gola. All Right Reserved Not to be Used for Making profit";
+  _cright.appendChild(_line);
+};
+
+/**
+ * Running functionality start from here
+ */
+const startApplication = () => {
+  _startNavigation();
+  setTimeout(() => {
+    // _landupContent();
+    _createNavigation();
+    _copyright();
+  }, 10);
+};
+
+startApplication();
