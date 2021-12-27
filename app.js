@@ -421,7 +421,7 @@ const _ScopeBlock = () => {
                 function giveInformation()
                 {
                   let carrier = ‘Software Developer’;
-                  return '${name} is a ${carrier}';
+                  return name + ' is a ' + carrier;
                 }
                 console.log(name);
                 console.log(giveInformation());
@@ -435,7 +435,7 @@ const _ScopeBlock = () => {
     
                 function items()
                 {
-                  return '${item1} ------ ${item2} ------- ${item3}'
+                  return item1+item2+item3;
                 }
                 const item1=’mobile’;
                 const item2=’laptop’;
@@ -457,7 +457,7 @@ const _ScopeBlock = () => {
                 function items()
                 {
                   Item 3 = ‘mouse’;
-                  return '${item1} ------ ${item2} ------- ${item3}'
+                  return item1+item2+item3;
                 }
                 console.log(items());
                 console.log(item3);
@@ -472,11 +472,11 @@ const _ScopeBlock = () => {
                   if(item1 ===’laptop’)
                   {
                     Item2 = ‘mouse’;
-                    console.log('${item1} --- ${item2}');
+                    console.log(item1,item2);
                   }
-                  console.log('${item1} --- ${item2}');
+                  console.log(item1,item2);
                 }
-                console.log('${item1} --- ${item2}'); // reference error
+                console.log(item1,item2); // reference error
     
       `;
   return _pre;
@@ -644,7 +644,7 @@ const _Loop = () => {
               {
                 for( int j=0;j<_BackEnd.length;j++)
                 {
-                  Console.log('${frontEnd[i]} ----- ${BackEnd[i]}');
+                  console.log(frontEnd[i] + ' ----- ' + BackEnd[i]);
                 }
               }
     
@@ -736,17 +736,17 @@ const _Iterators = () => {
               fruits.forEach(
                 function(fruitItems)
                 {
-                  console.log('I want to eat a ${fruitItems}');
+                  console.log('I want to eat a ',fruitItems);
                 }
               );
     
               //Second methord
-              fruits.forEach(fruitItems => console.log('I want to eat a ${fruitItems}'))
+              fruits.forEach(fruitItems => console.log('I want to eat a ',fruitItems))
     
               //Third Methord
               function printFruits(element)
               {
-                console.log('I want to eat a ${element}');
+                console.log('I want to eat a ',element);
               }
               fruits.forEach(printFruits);
     
@@ -1157,7 +1157,7 @@ const _Object = () => {
     
             // for...in
             for (let crewMember in spaceship.crew) {
-              console.log('${crewMember}: ${spaceship.crew[crewMember].name}');
+              console.log('{crewMember}: {spaceship.crew[crewMember].name}');
             }
     
         - Our for...in will iterate through each element of the spaceship.crew object. 
@@ -1247,7 +1247,7 @@ const _AdvanceObject = () => {
               _Language : 'JavaScript',
               get Info(){
                 if(this._name && this._Language){
-                  return 'name - ${this._name} and language - ${this._Language}'
+                  return 'name - {this._name} and language - {this._Language}'
                 }
                 else{
                   return 'Missing name or langauge';
@@ -1266,7 +1266,7 @@ const _AdvanceObject = () => {
                 _Language : 'JavaScript',
                 get Info(){
                       if(this._name && this._Language){
-                        return 'name - ${this._name} and language - ${this._Language}'
+                        return 'name - {this._name} and language - {this._Language}'
                     }
                     else{
                         return 'Missing name or langauge';
@@ -1297,7 +1297,7 @@ const _AdvanceObject = () => {
                     Langauge : Langauge,
                     Designation : Designation,
                     Info() {
-                        console.log('${this.name}'s object');
+                        console.log('{this.name}'s object');
                       }
                   }
               }
@@ -1315,7 +1315,7 @@ const _AdvanceObject = () => {
                   Langauge,
                   Designation,
                   Info() {
-                      console.log('${this.name}'s object');
+                      console.log('{this.name}'s object');
                     }
                 }
             }
@@ -1587,8 +1587,7 @@ const _Transpilation = () => {
       # .babelrc
         - Now that you’ve downloaded the Babel packages, you need to specify the version of the source JavaScript code.
         - You can specify the initial JavaScript version inside of a file named .babelrc. In your root directory, you can run touch .babelrc to create this file.
-        -	To use touch on windows install 2 libraries by command
-                C:\npm install touch-cli -g
+        -	To use touch on windows install 2 libraries by command  - npm install touch-cli -g
     
             After adding add an object to babel file 
             {
@@ -1698,7 +1697,7 @@ const _ModuleExportImport = () => {
             import Data from './Data';
             function displayData(){
                   Data.language.forEach(function(element){
-                  console.log('${element.name} - ${element.type}');
+                  console.log('{element.name} - {element.type}');
                   });
             }
             displayData();
@@ -2078,7 +2077,7 @@ const _Promises = () => {
                   itemsArr.forEach(item => {
                     total += item[1] * store[item[0]].cost
                   });
-                  console.log('All of the items are in stock. The total cost of the order is ${total}.');
+                  console.log('All of the items are in stock. The total cost of the order is {total}.');
                   resolve([order, total]);
                 } else {
                   reject('The order could not be completed because some items are sold out.');
@@ -2112,7 +2111,7 @@ const _Promises = () => {
                 const trackingNum = responseArray[1];
                 return new Promise ((resolve, reject) => {
                 setTimeout(()=> {  
-                  resolve('The order has been shipped. The tracking number is: ${trackingNum}.');
+                  resolve('The order has been shipped. The tracking number is: {trackingNum}.');
               }, generateRandomDelay());
               });
               };
@@ -2259,14 +2258,14 @@ const _Promises = () => {
     
       # Example
               const checkAvailability = (itemName, distributorName) => {
-                  console.log('Checking availability of ${itemName} at ${distributorName}...');
+                  console.log('Checking availability of {itemName} at {distributorName}...');
                   return new Promise((resolve, reject) => {
                       setTimeout(() => {
                           if (restockSuccess()) {
-                              console.log('${itemName} are in stock at ${distributorName}')
+                              console.log('{itemName} are in stock at {distributorName}')
                               resolve(itemName);
                           } else {
-                              reject('Error: ${itemName} is unavailable from ${distributorName} at this time.');
+                              reject('Error: {itemName} is unavailable from {distributorName} at this time.');
                           }
                       }, 1000);
                   });
@@ -2284,7 +2283,7 @@ const _Promises = () => {
               const {checkAvailability} = require('./library.js');
     
               const onFulfill = (itemsArray) => {
-                console.log('Items checked: ${itemsArray}');
+                console.log('Items checked: {itemsArray}');
                 console.log('Every item was available from the distributor. Placing order now.');
               };
     
@@ -2406,13 +2405,13 @@ const _AsyncAwait = () => {
     
           function learnlangauge(){
             libraryLanguage().then((language)=>{
-              console.log('I want to start leaning ${langauge}');
+              console.log('I want to start leaning {langauge}');
             })
           }
     
           async function learnlanguage(){
             let langauge = await libraryLanguage();
-            console.log('I Want to start learning ${langauge}');
+            console.log('I Want to start learning {langauge}');
           }
           learnlangauge()
     
@@ -2456,7 +2455,7 @@ const _AsyncAwait = () => {
                 setTimeout(()=>{
                   let randomIndex = Math.floor(Math.random()*7)
                   let electronic = electronics[randomIndex]
-                  console.log('2. I bought ${electronic} beacuse I want it.')
+                  console.log('2. I bought {electronic} beacuse I want it.')
                   resolve(electronic);
                 },1000)
               })
@@ -2468,13 +2467,13 @@ const _AsyncAwait = () => {
             function getElectronics(){
               console.log('1. Going to Bug electronics from Store...')
               let value = shopForElectronics()
-              console.log('3. Great! I'm ahpppy to get ${value}')
+              console.log('3. Great! I'm ahpppy to get {value}')
             }
             //Async await function
             async function getElectronics(){
               console.log('1. Going to Bug electronics from Store...')
               let value = await shopForElectronics()
-              console.log('3. Great! I'm ahpppy to get ${value}')
+              console.log('3. Great! I'm ahpppy to get {value}')
             }
     
             getElectronics()
@@ -2511,7 +2510,7 @@ const _AsyncAwait = () => {
                 setTimeout(()=>{
                   let randomIndex = Math.floor(Math.random()*7)
                   let electronic = electronics[randomIndex]
-                  console.log('I want to buy  ${electronic}.')
+                  console.log('I want to buy  {electronic}.')
                   resolve(electronic);
                 },1000)
               })
@@ -2521,7 +2520,7 @@ const _AsyncAwait = () => {
               return new Promise((resolve,reject) =>{
                 console.log('Time to pack the Order...')
                 setTimeout(()=>{
-                  console.log('${product} is Packing...')
+                  console.log('{product} is Packing...')
                   resolve(true)
                 },1000)
               })
@@ -2771,7 +2770,7 @@ const _RequestGetPost = () => {
           // AJAX function
           const getSuggestions = () => {
             const wordQuery = inputField.value
-            const endpoint = '${url}${queryParams}${wordQuery}';
+            const endpoint = '{url}{queryParams}{wordQuery}';
             const xhr = new XMLHttpRequest();
             xhr.responseType = 'json'
             xhr.onreadystatechange=()=>{
@@ -2819,7 +2818,7 @@ const _RequestGetPost = () => {
           const getSuggestions = () => {
             const wordQuery = inputField.value;
             const topicQuery =  topicField.value
-            const endpoint = '${url}${queryParams}${wordQuery}${additionalParams}${topicQuery}';
+            const endpoint = '{url}{queryParams}{wordQuery}{additionalParams}{topicQuery}';
             
             const xhr = new XMLHttpRequest();
             xhr.responseType = 'json';
@@ -3014,8 +3013,6 @@ const _mainContentRendered = (content) => {
     _Iterators,
     _Object,
     _AdvanceObject,
-    _Classes,
-    _Transpilation,
     _Classes,
     _Transpilation,
     _ModuleExportImport,
