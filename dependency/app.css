@@ -409,7 +409,9 @@ body {
   left: 0;
   width: 0;
   height: 20%;
-  background-color: orange;
+  background: #c6ffdd;
+  background: -webkit-linear-gradient(to right, #c6ffdd, #fbd786, #f7797d);
+  background: linear-gradient(to right, #c6ffdd, #fbd786, #f7797d);
   transition: width 0.7s ease;
 }
 .loader .loadertile:nth-child(0) {
