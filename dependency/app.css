@@ -63,12 +63,14 @@ body {
   width: auto;
   overflow-x: hidden;
   overflow-y: auto;
-  background-color: #000000;
+  background: #8e9eab;
+  background: -webkit-linear-gradient(to right, #eef2f3, #8e9eab);
+  background: linear-gradient(to right, #eef2f3, #8e9eab);
   text-align: inherit;
 }
 
 #pre pre {
-  color: #1ff042;
+  color: black;
 }
 
 /* Style for Vertical Tab End */
