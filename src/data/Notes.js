@@ -1587,12 +1587,11 @@ const moduleExportImport = () => {
         •	keep information private and protected from other modules;
         •	and, importantly, prevent pollution of the global namespace and potential naming collisions, by cautiously selecting variables and behavior we load into a program.
 
-    we’ll cover two ways to implement modules in JavaScript: Node.js’s module.exports and require() syntax, as well as the ES6 import/export syntax.
+    - we’ll cover two ways to implement modules in JavaScript: Node.js’s module.exports and require() syntax, as well as the ES6 import/export syntax.
 
   # module.exports
     - We can get started with modules by defining a module in one file and making the module available for use in another file with Node.js module.exports syntax. 
     - Every JavaScript file run in Node has a local module object with an exports property used to define what should be exported from the file.
-
           const Data = {};
           Data.name = 'Hari';
           Data.designation = 'SE';
@@ -1600,33 +1599,33 @@ const moduleExportImport = () => {
           module.export = Data;
 
   # require()
-    - To make use of the exported module and the behavior we define within it, we import the module into another file. In Node.js, use the require() function to import modules.
-
+    - To make use of the exported module and the behavior we define within it, 
+    - we import the module into another file. In Node.js, use the require() function to import modules.
           const Data = require('./Data.js');
           function displayData(){
               console.log(Data.name);
               console.log(Data.designation);
               console.log(Data.language);
           }
-
           displayData();
 
   # module.exports II
     - We can also wrap any collection of data and functions in an object, and export the object using module.exports.
-        module.exports ={
+          module.exports ={
             name : 'Hari',
             designation : 'SE',
             langauge : 'JavaScript',
             displayData : function(){
                             return this.name + this.designation + this.langauge;
-                }
+                          }
           }
 
         const Airplane = require('./Data.js');
         console.log(Airplane.displayData());
 
   # export default
-    - Node.js supports require()/module.exports, but as of ES6, JavaScript supports a new more readable and flexible syntax for exporting modules. 
+    - Node.js supports require()/module.exports, but as of ES6, 
+    - JavaScript supports a new more readable and flexible syntax for exporting modules. 
     - These are usually broken down into one of two techniques, default export and named exports.
           let Menu = {};
           export default Menu;
@@ -1634,7 +1633,8 @@ const moduleExportImport = () => {
       1.	export default uses the JavaScript export statement to export JavaScript objects, functions, and primitive data types.
       2.	Menu refers to the name of the Menu object, the object that we are setting the properties on within our modules.
     - When using ES6 syntax, we use export default in place of module.exports. Node.js doesn’t support export default by default, so module.
-    - exports is usually used for Node.js development and ES6 syntax is used for front-end development. As with most ES6 features, it is common to transpile code since ES6 is not supported by all browsers.
+    - exports is usually used for Node.js development and ES6 syntax is used for front-end development. 
+    - As with most ES6 features, it is common to transpile code since ES6 is not supported by all browsers.
 
         let Data = {};
         Data.name = 'Hari',
@@ -1648,12 +1648,10 @@ const moduleExportImport = () => {
               type : 'backEnd'
             }
         ]
-
         export default Data;
 
   # import
     - ES6 module syntax also introduces the import keyword for importing objects. In our order.js example, we import an object like this:
-
         import Data from './Data';
         function displayData(){
               Data.language.forEach(function(element){
@@ -1662,9 +1660,9 @@ const moduleExportImport = () => {
         }
         displayData();
 
-
   # Named Exports
-    - ES6 introduced a second common approach to export modules. In addition to export default, named exports allow us to export data through the use of variables.
+    - ES6 introduced a second common approach to export modules.
+    - In addition to export default, named exports allow us to export data through the use of variables.
         let _data = [
             {
               name : 'hari',
@@ -1694,12 +1692,12 @@ const moduleExportImport = () => {
 
   # Named Imports
     - To import objects stored in a variable, we use the import keyword and include the variables in a set of {}.
-
         import {_data,requirement,validateRequirement} from './data;
         console.log(requirement)
 
   # Export Named Exports
-    - Named exports are also distinct in that they can be exported as soon as they are declared, by placing the keyword export in front of variable declarations.
+    - Named exports are also distinct in that they can be exported as soon as they are declared, 
+    - by placing the keyword export in front of variable declarations.
         export let _data = [
               {
                 name : 'hari',
@@ -1729,14 +1727,13 @@ const moduleExportImport = () => {
   # Import Named Imports
     - To import variables that are declared, we simply use the original syntax that describes the variable name. 
     - In other words, exporting upon declaration does not have an impact on how we import the variables.
-
         import {_data,requirement,validateRequirement} from './data'
         console.log(requirement);
 
   # Export as
-    - Named exports also conveniently offer a way to change the name of variables when we export or import them. We can do this with the as keyword.
-    Let’s see how this works. In our menu.js example
-
+    - Named exports also conveniently offer a way to change the name of variables when we export or import them.
+    - We can do this with the as keyword.
+    - Let’s see how this works. In our menu.js example
         let speciallangauge = '';
         let isfrontend= function() {
           }; 
@@ -1747,21 +1744,23 @@ const moduleExportImport = () => {
 
   # Import as
     - To import named export aliases with the as keyword, we add the aliased variable in our import statement.
-
           import { chefsSpecial, isVeg } from './menu';
     - In orders.js
           1.	We import chefsSpecial and isVeg from the Menu object.
-          2.	Here, note that we have an option to alias an object that was not previously aliased when exported. For example, the isLowSodium object that we exported could be aliased with the as keyword when imported: import {isLowSodium as saltFree} from 'Menu';
+          2.	Here, note that we have an option to alias an object that was not previously aliased when exported. 
+          - For example, the isLowSodium object that we exported could be aliased with the as keyword when imported: 
+                import {isLowSodium as saltFree} from 'Menu';
     - Another way of using aliases is to import the entire module as an alias:
 
           import * as data from './menu';
-          
           data.speciallangauge;
           data.isfrontend();
           data.isbackend(); 
 
         1.	This allows us to import an entire module from menu.js as an alias Carte.
-        2.	In this example, whatever name we exported would be available to us as properties of that module. For example, if we exported the aliases chefsSpecial and isVeg, these would be available to us. If we did not give an alias to isLowSodium, we would call it as defined on the Carte module.
+        2.	In this example, whatever name we exported would be available to us as properties of that module.
+        - For example, if we exported the aliases chefsSpecial and isVeg, these would be available to us.
+        - If we did not give an alias to isLowSodium, we would call it as defined on the Carte module.
 
   # Combining Export Statements
     - We can also use named exports and default exports together. In menu.js:
@@ -1777,11 +1776,11 @@ const moduleExportImport = () => {
         export { speciallangauge as special, speciallangauge as lang};
         export default isbackend;
 
-        Here we use the keyword export to export the named exports at the bottom of the file. Meanwhile, we export the isGlutenFree variable using the export default syntax.
-        This would also work if we exported most of the variables as declared and exported others with the export default syntax.
+    - Here we use the keyword export to export the named exports at the bottom of the file.
+    - Meanwhile, we export the isGlutenFree variable using the export default syntax.
+    - This would also work if we exported most of the variables as declared and exported others with the export default syntax.
 
-        export let Menu = {};
-        
+        export let Menu = {};  
         export let specialty = '';
         export let isVegetarian = function() {
         }; 
@@ -1792,14 +1791,13 @@ const moduleExportImport = () => {
   
         export default isGlutenFree;
 
-        Here we use the export keyword to export the variables upon declaration, and again export the isGlutenFree variable using the export default syntax
-        While it’s better to avoid combining two methods of exporting, it is useful on occasion. 
-        For example, if you suspect developers may only be interested in importing a specific function and won’t need to import the entire default export.
+    - Here we use the export keyword to export the variables upon declaration, and again export the isGlutenFree variable using the export default syntax
+    - While it’s better to avoid combining two methods of exporting, it is useful on occasion. 
+    - For example, if you suspect developers may only be interested in importing a specific function and won’t need to import the entire default export.
 
   # Combining Import Statements
     - We can import the collection of objects and functions with the same data.
     - We can use an import keyword to import both types of variables as such:
-
         import { specialty, isVegetarian, isLowSodium } from './menu';
         import GlutenFree from './menu';
 
@@ -1808,7 +1806,7 @@ const moduleExportImport = () => {
 };
 const promises = () => {
   let js14 = `
-  # JAVASCRIPT PROMISES
+  # JavaScript Promises
     - In web development, asynchronous programming is notorious for being a challenging topic.
     - An asynchronous operation is one that allows the computer to “move on” to other tasks while waiting for the asynchronous operation to complete. 
     - Asynchronous programming means that time-consuming operations don’t have to bring everything else in our programs to a halt.
@@ -1820,7 +1818,7 @@ const promises = () => {
   # What is a Promise?
       Promises are objects that represent the eventual outcome of an asynchronous operation. A Promise object can be in one of three states:
       •	Pending: The initial state— the operation has not completed yet.
-      •	Fulfilled: The operation has completed successfully and the promise now has a resolved value. For example, a request’s promise might resolve with a JSON object as its value.
+      •	Fulfilled: The operation has completed successfully and the promise now has a resolved value.For example, a request’s promise might resolve with a JSON object as its value.
       •	Rejected: The operation has failed and the promise has a reason for the failure. This reason is usually an Error of some kind.
       We refer to a promise as settled if it is no longer pending— it is either fulfilled or rejected.
 
@@ -1870,18 +1868,27 @@ const promises = () => {
             const orderPromise = orderIphone();
             console.log(orderPromise);
 
-  After that Run your program in CMD using node filename.js
+    - After that Run your program in CMD using node filename.js
 
   # The Node setTimeout() Function
-    Knowing how to construct a promise is useful, but most of the time, knowing how to consume, or use, promises will be key. Rather than constructing promises, you’ll be handling Promise objects returned to you as the result of an asynchronous operation. These promises will start off pending but settle eventually.
-    Moving forward, we’ll be simulating this by providing you with functions that return promises which settle after some time. To accomplish this, we’ll be using setTimeout(). setTimeout() is a Node API (a comparable API is provided by web browsers) that uses callback functions to schedule tasks to be performed after a delay. setTimeout() has two parameters: a callback function and a delay in milliseconds.
+    - Knowing how to construct a promise is useful, but most of the time, knowing how to consume, or use, promises will be key.
+    - Rather than constructing promises, you’ll be handling Promise objects returned to you as the result of an asynchronous operation.
+    - These promises will start off pending but settle eventually.
+    - Moving forward, we’ll be simulating this by providing you with functions that return promises which settle after some time.
+    - To accomplish this, we’ll be using setTimeout(). setTimeout() is a Node API (a comparable API is provided by web browsers)
+    - that uses callback functions to schedule tasks to be performed after a delay. setTimeout() has two parameters:
+    - a callback function and a delay in milliseconds.
         const delayedHello = () => {
           console.log('Hi! This is an asynchronous greeting!');
         };
         setTimeout(delayedHello, 2000);
 
-    This delay is performed asynchronously—the rest of our program won’t stop executing during the delay. Asynchronous JavaScript uses something called the event-loop. After two seconds, delayedHello() is added to a line of code waiting to be run. Before it can run, any synchronous code from the program will run. Next, any code in front of it in the line will run. This means it might be more than two seconds before delayedHello() is actually executed.
-    Let’s look at how we’ll be using setTimeout() to construct asynchronous promises:
+    - This delay is performed asynchronously—the rest of our program won’t stop executing during the delay.
+    - Asynchronous JavaScript uses something called the event-loop.
+    - After two seconds, delayedHello() is added to a line of code waiting to be run.
+    - Before it can run, any synchronous code from the program will run. Next, any code in front of it in the line will run.
+    - This means it might be more than two seconds before delayedHello() is actually executed.
+    - Let’s look at how we’ll be using setTimeout() to construct asynchronous promises:
         const returnPromiseFunction = () => {
           return new Promise((resolve, reject) => {
             setTimeout(( ) => {resolve('I resolved!')}, 1000);
@@ -1901,16 +1908,18 @@ const promises = () => {
         console.log('Hi this is last line of code');
 
   # Consuming Promises
-    The initial state of an asynchronous promise is pending, but we have a guarantee that it will settle. How do we tell the computer what should happen then? 
-    Promise objects come with an aptly named .then() method. It allows us to say, “I have a promise, when it settles, then here’s what I want to happen…”
-    .then() is a higher-order function— it takes two callback functions as arguments. We refer to these callbacks as handlers. 
-    When the promise settles, the appropriate handler will be invoked with that settled value.
-      •	The first handler, sometimes called onFulfilled, is a success handler, and it should contain the logic for the promise resolving.
-      •	The second handler, sometimes called onRejected, is a failure handler, and it should contain the logic for the promise rejecting.
+    - The initial state of an asynchronous promise is pending, but we have a guarantee that it will settle.
+    - How do we tell the computer what should happen then? 
+    - Promise objects come with an aptly named .then() method. 
+    - It allows us to say, “I have a promise, when it settles, then here’s what I want to happen…”
+    - .then() is a higher-order function— it takes two callback functions as arguments. We refer to these callbacks as handlers. 
+    - When the promise settles, the appropriate handler will be invoked with that settled value.
+       •	The first handler, sometimes called onFulfilled, is a success handler, and it should contain the logic for the promise resolving.
+       •	The second handler, sometimes called onRejected, is a failure handler, and it should contain the logic for the promise rejecting.
 
-    We can invoke .then() with one, both, or neither handler! This allows for flexibility, but it can also make for tricky debugging. 
-    If the appropriate handler is not provided, instead of throwing an error, .then() will just return a promise with the same settled value as the promise it was called on. 
-    One important feature of .then() is that it always returns a promise. We’ll return to this in more detail in a later exercise and explore why it’s so important.
+    - We can invoke .then() with one, both, or neither handler! This allows for flexibility, but it can also make for tricky debugging. 
+    - If the appropriate handler is not provided, instead of throwing an error, .then() will just return a promise with the same settled value as the promise it was called on. 
+    - One important feature of .then() is that it always returns a promise. We’ll return to this in more detail in a later exercise and explore why it’s so important.
 
     The onFulfilled and onRejected Functions
     To handle a “successful” promise, or a promise that resolved, we invoke .then() on the promise, passing in a success handler callback function:
@@ -1925,82 +1934,86 @@ const promises = () => {
         
         prom.then(handleSuccess); // Prints: 'Yay!'
 
-    With typical promise consumption, we won’t know whether a promise will resolve or reject, so we’ll need to provide the logic for either case. We can pass both an onFulfilled and onRejected callback to .then().
+    - With typical promise consumption, we won’t know whether a promise will resolve or reject, so we’ll need to provide the logic for either case.
+    - We can pass both an onFulfilled and onRejected callback to .then().
 
-  Example 
-        -Library.js
+  # Example 
+    - Library.js
 
-              const data = {
-                windows : 10,
-                mac : 5,
-                iphone : 20
+        const data = {
+          windows : 10,
+          mac : 5,
+          iphone : 20
+        }
+        const checkInventory = (order) =>{
+          return new Promise((resolve,reject) =>{
+            setTimeout(()=>{
+              let checkStock = order.every(item => data[item[0]] >= item[1]);
+              if(checkStock) {
+                resolve('Thanks you for placing order.');
               }
-              const checkInventory = (order) =>{
-                return new Promise((resolve,reject) =>{
-                  setTimeout(()=>{
-                    let checkStock = order.every(item => data[item[0]] >= item[1]);
-                    if(checkStock) {
-                      resolve('Thanks you for placing order.');
-                    }
-                    else{
-                      reject('We're sorry. Order is Unsuccessful')
-                    }
-                  },1000);
-                })
-              };
+              else{
+                reject('We're sorry. Order is Unsuccessful')
+              }
+            },1000);
+          })
+        };
 
-              module.export = { checkInventory };
+        module.export = { checkInventory };
 
-        -App.js
+    - App.js
 
-            const {checkInventory} = require('./library.js');
+        const {checkInventory} = require('./library.js');
 
-            const order = [['mac',1] , ['iphone', 2]];
+        const order = [['mac',1] , ['iphone', 2]];
 
-            const handleSuccess = (resolvedvalue) =>{
-              console.log(resolvedvalue);
-            }
-            const handleFailure = (rejectreason) =>{
-              console.log(rejectreason);
-            }
+        const handleSuccess = (resolvedvalue) =>{
+          console.log(resolvedvalue);
+        }
+        const handleFailure = (rejectreason) =>{
+          console.log(rejectreason);
+        }
 
-            checkInventory(order)
-            .then(handleSuccess,handleFailure);
+        checkInventory(order)
+           .then(handleSuccess,handleFailure);
 
   # Using catch() with Promises
-    - One way to write cleaner code is to follow a principle called separation of concerns. Separation of concerns means organizing code into distinct sections each handling a specific task. 
+    - One way to write cleaner code is to follow a principle called separation of concerns. 
+    - Separation of concerns means organizing code into distinct sections each handling a specific task. 
     - It enables us to quickly navigate our code and know where to look if something isn’t working.
 
-      Remember, .then() will return a promise with the same settled value as the promise it was called on if no appropriate handler was provided. 
-      This implementation allows us to separate our resolved logic from our rejected logic. 
-      Instead of passing both handlers into one .then(), we can chain a second .then() with a failure handler to a first .then() with a success handler and both cases will be handled.
-            prom
-            .then((resolvedValue) => {
-              console.log(resolvedValue);
-            })
-            .then(null, (rejectionReason) => {
-              console.log(rejectionReason);
-            });
+    - Remember, .then() will return a promise with the same settled value as the promise it was called on if no appropriate handler was provided. 
+    - This implementation allows us to separate our resolved logic from our rejected logic. 
+    - Instead of passing both handlers into one .then(), we can chain a second .then() with a failure handler to a first .then() with a success handler and both cases will be handled.
+        prom
+        .then((resolvedValue) => {
+          console.log(resolvedValue);
+        })
+        .then(null, (rejectionReason) => {
+          console.log(rejectionReason);
+        });
 
-  Since JavaScript doesn’t mind whitespace, we follow a common convention of putting each part of this chain on a new line to make it easier to read. To create even more readable code, we can use a different promise function: .catch().
-  The .catch() function takes only one argument, onRejected. In the case of a rejected promise, this failure handler will be invoked with the reason for rejection. Using .catch() accomplishes the same thing as using a .then() with only a failure handler.
+    - Since JavaScript doesn’t mind whitespace, we follow a common convention of putting each part of this chain on a new line to make it easier to read.
+    - To create even more readable code, we can use a different promise function: .catch().
+    - The .catch() function takes only one argument, onRejected. In the case of a rejected promise,
+    - this failure handler will be invoked with the reason for rejection.
+    - Using .catch() accomplishes the same thing as using a .then() with only a failure handler.
 
-  prom
-    .then((resolvedValue) => {
-      console.log(resolvedValue);
-    })
-    .catch((rejectionReason) => {
-      console.log(rejectionReason);
-    });
+      prom
+        .then((resolvedValue) => {
+          console.log(resolvedValue);
+        })
+        .catch((rejectionReason) => {
+          console.log(rejectionReason);
+        });
 
   # Chaining Multiple Promises
-
-    One common pattern we’ll see with asynchronous programming is multiple operations which depend on each other to execute or that must be executed in a certain order. 
-    We might make one request to a database and use the data returned to us to make another request and so on!
-    Let’s illustrate this with another cleaning example, washing clothes:
-    We take our dirty clothes and put them in the washing machine. If the clothes are cleaned, then we’ll want to put them in the dryer. 
-    After the dryer runs, if the clothes are dry, then we can fold them and put them away.
-    This process of chaining promises together is called composition. Promises are designed with composition in mind! Here’s a simple promise chain in code:
+    - One common pattern we’ll see with asynchronous programming is multiple operations which depend on each other to execute or that must be executed in a certain order. 
+    - We might make one request to a database and use the data returned to us to make another request and so on!
+    - Let’s illustrate this with another cleaning example, washing clothes:
+    - We take our dirty clothes and put them in the washing machine. If the clothes are cleaned, then we’ll want to put them in the dryer. 
+    - After the dryer runs, if the clothes are dry, then we can fold them and put them away.
+    - This process of chaining promises together is called composition. Promises are designed with composition in mind! Here’s a simple promise chain in code:
           firstPromiseFunction()
           .then((firstResolveVal) => {
             return secondPromiseFunction(firstResolveVal);
@@ -2110,10 +2123,10 @@ const promises = () => {
             console.log(errorMessage);
           });
 
-
   # Avoiding Common Mistakes
-        Promise composition allows for much more readable code than the nested callback syntax that preceded it. However, it can still be easy to make mistakes. In this exercise, we’ll go over two common mistakes with promise composition.
-        Mistake 1: Nesting promises instead of chaining them.
+    - Promise composition allows for much more readable code than the nested callback syntax that preceded it.
+    - However, it can still be easy to make mistakes. In this exercise, we’ll go over two common mistakes with promise composition.
+    -> Mistake 1: Nesting promises instead of chaining them.
         returnsFirstPromise()
         .then((firstResolveVal) => {
           return returnsSecondValue(firstResolveVal)
@@ -2122,15 +2135,16 @@ const promises = () => {
             })
         })
 
-      Let’s break down what’s happening in the above code:
-          •	We invoke returnsFirstPromise() which returns a promise.
-          •	We invoke .then() with a success handler.
-          •	Inside the success handler, we invoke returnsSecondValue() with firstResolveVal which will return a new promise.
-          •	We invoke a second .then() to handle the logic for the second promise settling all inside the first then()!
-          •	Inside that second .then(), we have a success handler which will log the second promise’s resolved value to the console.
+    - Let’s break down what’s happening in the above code:
+        •	We invoke returnsFirstPromise() which returns a promise.
+        •	We invoke .then() with a success handler.
+        •	Inside the success handler, we invoke returnsSecondValue() with firstResolveVal which will return a new promise.
+        •	We invoke a second .then() to handle the logic for the second promise settling all inside the first then()!
+        •	Inside that second .then(), we have a success handler which will log the second promise’s resolved value to the console.
 
-    Instead of having a clean chain of promises, we’ve nested the logic for one inside the logic of the other. Imagine if we were handling five or ten promises!
-    Mistake 2: Forgetting to return a promise.
+    - Instead of having a clean chain of promises, we’ve nested the logic for one inside the logic of the other.
+    - Imagine if we were handling five or ten promises!
+    -> Mistake 2: Forgetting to return a promise.
           returnsFirstPromise()
           .then((firstResolveVal) => {
             returnsSecondValue(firstResolveVal)
@@ -2145,69 +2159,65 @@ const promises = () => {
       •	Inside the success handler, we create our second promise, but we forget to return it!
       •	We invoke a second .then(). It’s supposed to handle the logic for the second promise, but since we didn’t return, this .then() is invoked on a promise with the same settled value as the original promise!
 
-          const {checkInventory, processPayment, shipOrder} = require('./library.js');
+        const {checkInventory, processPayment, shipOrder} = require('./library.js');
 
-          const order = {
-            items: [['sunglasses', 1], ['bags', 2]],
-            giftcardBalance: 79.82
-          };
+        const order = {
+          items: [['sunglasses', 1], ['bags', 2]],
+          giftcardBalance: 79.82
+        };
 
-          // Refactor the code below:
+        // Refactor the code below:
 
-          checkInventory(order)
-              .then((resolvedValueArray) => {
-                  processPayment(resolvedValueArray)
-                      .then((resolvedValueArray) => {
-                          shipOrder(resolvedValueArray)
-                              .then((successMessage) => {
-                                  console.log(successMessage);
-                              });
-                      });
-              });
+        checkInventory(order)
+            .then((resolvedValueArray) => {
+                processPayment(resolvedValueArray)
+                    .then((resolvedValueArray) => {
+                        shipOrder(resolvedValueArray)
+                            .then((successMessage) => {
+                                console.log(successMessage);
+                            });
+                    });
+            });
               
-              
+        // Correct order
+        const {checkInventory, processPayment, shipOrder} = require('./library.js');
+        const order = {
+          items: [['sunglasses', 1], ['bags', 2]],
+          giftcardBalance: 79.82
+        };
 
-          Correct order
-          const {checkInventory, processPayment, shipOrder} = require('./library.js');
-
-          const order = {
-            items: [['sunglasses', 1], ['bags', 2]],
-            giftcardBalance: 79.82
-          };
-
-  // Refactor the code below:
-
-          checkInventory(order)
-              .then((resolvedValueArray) => {
-                  return processPayment(resolvedValueArray)
-              })
-              .then((resolvedValueArray) => {
-                  return shipOrder(resolvedValueArray)
-              })
-              .then((successMessage) => {
-                  console.log(successMessage);
-              })
+        // Refactor the code below:
+        checkInventory(order)
+          .then((resolvedValueArray) => {
+              return processPayment(resolvedValueArray)
+            })
+          .then((resolvedValueArray) => {
+              return shipOrder(resolvedValueArray)
+            })
+          .then((successMessage) => {
+              console.log(successMessage);
+            })
 
   # Using Promise.all()
-      When done correctly, promise composition is a great way to handle situations where asynchronous operations depend on each other or execution order matters. 
-      What if we’re dealing with multiple promises, but we don’t care about the order? Let’s think in terms of cleaning again.
-      For us to consider our house clean, we need our clothes to dry, our trash bins emptied, and the dishwasher to run. We need all of these tasks to complete but not in any particular order. 
-      Furthermore, since they’re all getting done asynchronously, they should really all be happening at the same time!
-      To maximize efficiency we should use concurrency, multiple asynchronous operations happening together. With promises, we can do this with the function Promise.all().
+    When done correctly, promise composition is a great way to handle situations where asynchronous operations depend on each other or execution order matters. 
+    What if we’re dealing with multiple promises, but we don’t care about the order? Let’s think in terms of cleaning again.
+    For us to consider our house clean, we need our clothes to dry, our trash bins emptied, and the dishwasher to run. We need all of these tasks to complete but not in any particular order. 
+    Furthermore, since they’re all getting done asynchronously, they should really all be happening at the same time!
+    To maximize efficiency we should use concurrency, multiple asynchronous operations happening together. With promises, we can do this with the function Promise.all().
 
-      Promise.all() accepts an array of promises as its argument and returns a single promise. That single promise will settle in one of two ways:
-        •	If every promise in the argument array resolves, the single promise returned from Promise.all() will resolve with an array containing the resolve value from each promise in the argument array.
-        •	If any promise from the argument array rejects, the single promise returned from Promise.all() will immediately reject with the reason that promise rejected. This behavior is sometimes referred to as failing fast.
+    Promise.all() accepts an array of promises as its argument and returns a single promise. That single promise will settle in one of two ways:
+     • If every promise in the argument array resolves, the single promise returned from Promise.all() will resolve with an array containing the resolve value from each promise in the argument array.
+     • If any promise from the argument array rejects, the single promise returned from Promise.all() will immediately reject with the reason that promise rejected. This behavior is sometimes referred to as failing fast.
 
-      let myPromises = Promise.all([returnsPromOne(), returnsPromTwo(), returnsPromThree()]);
+    let myPromises = Promise.all([returnsPromOne(), returnsPromTwo(), returnsPromThree()]);
 
-      myPromises
-        .then((arrayOfValues) => {
-          console.log(arrayOfValues);
-        })
-        .catch((rejectionReason) => {
-          console.log(rejectionReason);
-        });
+     myPromises
+      .then((arrayOfValues) => {
+        console.log(arrayOfValues);
+      })
+      .catch((rejectionReason) => {
+        console.log(rejectionReason);
+      });
 
     Let’s break down what’s happening:
       •	We declare myPromises assigned to invoking Promise.all().
@@ -2216,47 +2226,46 @@ const promises = () => {
       •	We invoke .catch() with a failure handler which will print the first rejection message if any promise rejects.
 
   # Example
-          const checkAvailability = (itemName, distributorName) => {
-              console.log('Checking availability of {itemName} at {distributorName}...');
-              return new Promise((resolve, reject) => {
-                  setTimeout(() => {
-                      if (restockSuccess()) {
-                          console.log('{itemName} are in stock at {distributorName}')
-                          resolve(itemName);
-                      } else {
-                          reject('Error: {itemName} is unavailable from {distributorName} at this time.');
-                      }
-                  }, 1000);
-              });
-          };
+      const checkAvailability = (itemName, distributorName) => {
+        console.log('Checking availability of {itemName} at {distributorName}...');
+          return new Promise((resolve, reject) => {
+            setTimeout(() => {
+              if (restockSuccess()) {
+                console.log('{itemName} are in stock at {distributorName}')
+                resolve(itemName);
+               } else {
+                reject('Error: {itemName} is unavailable from {distributorName} at this time.');
+              }
+            }, 1000);
+          });
+        };
 
-          module.exports = { checkAvailability };
+      module.exports = { checkAvailability };
 
-          // This is a function that returns true 80% of the time
-          // We're using it to simulate a request to the distributor being successful this often
-          function restockSuccess() {
-              return (Math.random() > .2);
-          }
+      // This is a function that returns true 80% of the time
+      // We're using it to simulate a request to the distributor being successful this often
+        function restockSuccess() {
+          return (Math.random() > .2);
+        }
 
+        const {checkAvailability} = require('./library.js');
 
-          const {checkAvailability} = require('./library.js');
+        const onFulfill = (itemsArray) => {
+          console.log('Items checked: {itemsArray}');
+          console.log('Every item was available from the distributor. Placing order now.');
+        };
 
-          const onFulfill = (itemsArray) => {
-            console.log('Items checked: {itemsArray}');
-            console.log('Every item was available from the distributor. Placing order now.');
-          };
+        const onReject = (rejectionReason) => {
+          console.log(rejectionReason);
+        };
 
-          const onReject = (rejectionReason) => {
-            console.log(rejectionReason);
-          };
+        const checkSunglasses = checkAvailability('sunglasses', 'Favorite Supply Co.');
+        const checkPants = checkAvailability('pants', 'Favorite Supply Co.'); 
+        const  checkBags = checkAvailability('bags', 'Favorite Supply Co.');
 
-          const checkSunglasses = checkAvailability('sunglasses', 'Favorite Supply Co.');
-          const checkPants = checkAvailability('pants', 'Favorite Supply Co.'); 
-          const  checkBags = checkAvailability('bags', 'Favorite Supply Co.');
-
-          Promise.all([checkSunglasses, checkPants, checkBags])
-            .then(onFulfill)
-            .catch(onReject);
+        Promise.all([checkSunglasses, checkPants, checkBags])
+          .then(onFulfill)
+          .catch(onReject);
 
 `;
   return <pre>{js14}</pre>;
@@ -2280,7 +2289,7 @@ const asyncAwait = () => {
           
           myFunc();
 
-    We’ll be using async function declarations throughout this lesson, but we can also create async function expressions:
+    - We’ll be using async function declarations throughout this lesson, but we can also create async function expressions:
       const myFunc = async () => {
         // Function body here
       };
@@ -2301,8 +2310,9 @@ const asyncAwait = () => {
           console.log(resolvedValue);
         })  // Prints 5
 
-    In the example above, even though we return 5 inside the function body, what’s actually returned when we invoke fivePromise() is a promise with a resolved value of 5.
-    Let’s write an async function!
+    - In the example above, even though we return 5 inside the function body, 
+    - what’s actually returned when we invoke fivePromise() is a promise with a resolved value of 5.
+    - Let’s write an async function!
 
       async function withAsyncNumberCheck(num){
         return new Promise((resolve,reject)=>{
@@ -2530,7 +2540,7 @@ const asyncAwait = () => {
         
         usingTryCatch();
 
-    Remember, since async functions return promises we can still use native promise’s .catch() with an async function
+    - Remember, since async functions return promises we can still use native promise’s .catch() with an async function
 
       async function usingPromiseCatch() {
         let resolveValue = await asyncFunction('thing that will fail');
@@ -2541,7 +2551,7 @@ const asyncAwait = () => {
       console.log(rejectValue);
       })
 
-    Example
+    -> Example
         let randomSuccess = () => {
         let num = Math.random();
         if (num < .5 ){
@@ -2633,23 +2643,25 @@ const asyncAwait = () => {
           Purchase()
 
   # Await Promise.all()
-          Another way to take advantage of concurrency when we have multiple promises which can be executed simultaneously is to await a Promise.all().
-          We can pass an array of promises as the argument to Promise.all(), and it will return a single promise. This promise will resolve when all of the promises in the argument array have resolved. This promise’s resolve value will be an array containing the resolved values of each promise from the argument array.
-          async function asyncPromAll() {
-            const _resultArray = await Promise.all([asyncTask1(), asyncTask2(), asyncTask3(), asyncTask4()]);
-            for (let i = 0; i<_resultArray.length; i++){
-              console.log(resultArray[i]); 
-            }
-          }
+    - Another way to take advantage of concurrency when we have multiple promises which can be executed simultaneously is to await a Promise.all().
+    - We can pass an array of promises as the argument to Promise.all(), and it will return a single promise. This promise will resolve when all of the promises in the argument array have resolved. This promise’s resolve value will be an array containing the resolved values of each promise from the argument array.
+       async function asyncPromAll() {
+         const _resultArray = await Promise.all([asyncTask1(), asyncTask2(), asyncTask3(), asyncTask4()]);
+         for (let i = 0; i<_resultArray.length; i++){
+           console.log(resultArray[i]); 
+         }
+       }
 
-      In our above example, we await the resolution of a Promise.all(). This Promise.all() was invoked with an argument array containing four promises (returned from required-in functions). 
-      Next, we loop through our resultArray, and log each item to the console. The first element in resultArray is the resolved value of the asyncTask1() promise, 
+    - In our above example, we await the resolution of a Promise.all(). 
+    - This Promise.all() was invoked with an argument array containing four promises (returned from required-in functions). 
+    - Next, we loop through our resultArray, and log each item to the console. 
+    - The first element in resultArray is the resolved value of the asyncTask1() promise, 
       the second is the value of the asyncTask2() promise, and so on.
 
-      Promise.all() allows us to take advantage of asynchronicity— each of the four asynchronous tasks can process concurrently. Promise.all() also has the benefit of failing fast, 
-      meaning it won’t wait for the rest of the asynchronous actions to complete once any one has rejected. 
-      As soon as the first promise in the array rejects, the promise returned from Promise.all() will reject with that reason. 
-      As it was when working with native promises, Promise.all() is a good choice if multiple asynchronous tasks are all required, but none must wait for any other before executing.
+    - Promise.all() allows us to take advantage of asynchronicity— each of the four asynchronous tasks can process concurrently. Promise.all() also has the benefit of failing fast, 
+    - meaning it won’t wait for the rest of the asynchronous actions to complete once any one has rejected. 
+    - As soon as the first promise in the array rejects, the promise returned from Promise.all() will reject with that reason. 
+    - As it was when working with native promises, Promise.all() is a good choice if multiple asynchronous tasks are all required, but none must wait for any other before executing.
 
     Example - 
         let {bookWindows,bookMac,bookIphone,bookAndroid} = require('./library.js')
