@@ -1,14 +1,14 @@
 # JavaScript notes
-This repository contains some good JavaScript notes.
+This repository contains some good React notes.
 
 ## Accessible
- - :computer: https://hariomgola.github.io/javascript/
+ - :green_circle::computer: https://hariomgola.github.io/react/
 
 ## Running project
  Project is deployed on above mentioned url. Please visit to see its working.
 
 ## Project Status
-  - :bell: Completed
+  - :bell: In-progress
 
 ## Deployment Status
   - :green_circle: Online

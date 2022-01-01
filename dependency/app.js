@@ -6,7 +6,7 @@
  */
 const _IntroductionToJS = () => {
   let _pre = document.createElement("pre");
-  _pre.innerHTML = `
+  let r1 = `
       # JavaScript
         - JavaScript is primarily known as the language of most modern web browsers, and its early quirks gave it a bit of a bad reputation. 
         - However, the language has continued to evolve and improve.
