@@ -9,6 +9,10 @@ import notesRender from "../../data/NotesRender";
 // functionality start from here
 const Notes = (props) => {
   let _Input = props.data;
+  // special condition for scope and block
+  if (_Input === "Scope &amp; Blocks") {
+    _Input = "Scope & Blocks";
+  }
   let preNotes = notesRender();
   let filterNotes = preNotes.filter((note) => note.name === _Input);
   filterNotes = filterNotes[0]["fname"]();
