@@ -2126,7 +2126,7 @@ const promises = () => {
   # Avoiding Common Mistakes
     - Promise composition allows for much more readable code than the nested callback syntax that preceded it.
     - However, it can still be easy to make mistakes. In this exercise, we’ll go over two common mistakes with promise composition.
-    -> Mistake 1: Nesting promises instead of chaining them.
+    |> Mistake 1: Nesting promises instead of chaining them.
         returnsFirstPromise()
         .then((firstResolveVal) => {
           return returnsSecondValue(firstResolveVal)
@@ -2144,7 +2144,7 @@ const promises = () => {
 
     - Instead of having a clean chain of promises, we’ve nested the logic for one inside the logic of the other.
     - Imagine if we were handling five or ten promises!
-    -> Mistake 2: Forgetting to return a promise.
+    |> Mistake 2: Forgetting to return a promise.
           returnsFirstPromise()
           .then((firstResolveVal) => {
             returnsSecondValue(firstResolveVal)
@@ -2283,53 +2283,52 @@ const asyncAwait = () => {
 
   # The async Keyword
     - The async keyword is used to write functions that handle asynchronous actions. We wrap our asynchronous logic inside a function prepended with the async keyword. Then, we invoke that function.
-          async function myFunc() {
-            // Function body here
-          };
-          
-          myFunc();
+        async function myFunc() {
+          // Function body here
+        };
+        myFunc();
 
     - We’ll be using async function declarations throughout this lesson, but we can also create async function expressions:
-      const myFunc = async () => {
-        // Function body here
-      };
-  
-      myFunc();
+        const myFunc = async () => {
+          // Function body here
+        };
+        myFunc();
 
     - async functions always return a promise. This means we can use traditional promise syntax, like .then() and .catch with our async functions. An async function will return in one of three ways:
         •	If there’s nothing returned from the function, it will return a promise with a resolved value of undefined.
         •	If there’s a non-promise value returned from the function, it will return a promise resolved to that value.
         •	If a promise is returned from the function, it will simply return that promise
 
-      async function fivePromise() { 
-        return 5;
-      }
-      
-      fivePromise()
-      .then(resolvedValue => {
-          console.log(resolvedValue);
-        })  // Prints 5
+            async function fivePromise() { 
+              return 5;
+            }
+
+            fivePromise()
+            .then(resolvedValue => {
+                console.log(resolvedValue);
+              })  // Prints 5
 
     - In the example above, even though we return 5 inside the function body, 
     - what’s actually returned when we invoke fivePromise() is a promise with a resolved value of 5.
     - Let’s write an async function!
 
-      async function withAsyncNumberCheck(num){
-        return new Promise((resolve,reject)=>{
-          //Checking if number is positive
-          if(num >0){
-            resolve('Positive number')
+          async function withAsyncNumberCheck(num){
+            return new Promise((resolve,reject)=>{
+              //Checking if number is positive
+              if(num >0){
+                resolve('Positive number')
+              }
+              else{
+                resolve('Negative number')
+              }
+            })
           }
-          else{
-            resolve('Negative number')
-          }
-        })
-      }
 
-      withAsyncNumberCheck(-10)
-        .then(resolveValue=>{
-          console.log(resolveValue);
-        })
+          withAsyncNumberCheck(-10)
+            .then(resolveValue=>{
+              console.log(resolveValue);
+            })
+
   # The await Operator
     - In the last exercise, we covered the async keyword. By itself, it doesn’t do much; async functions are almost always used with the additional keyword await inside the function body.
     - The await keyword can only be used inside an async function. await is an operator: it returns the resolved value of a promise. 
@@ -2347,104 +2346,104 @@ const asyncAwait = () => {
     - Then we log resolvedValue to the console. We’re able to handle the logic for a promise in a way that reads like synchronous code.
     
     Example – 
-        const libraryLanguage = () =>{
-          return new Promise((resolve,reject) =>{
-            setTimeout(()=>{
-              console.log('Do you want to learn programming...')
+          const libraryLanguage = () =>{
+            return new Promise((resolve,reject) =>{
               setTimeout(()=>{
-                console.log('Do you want to learn backend...')
+                console.log('Do you want to learn programming...')
                 setTimeout(()=>{
-                  console.log('Do you want to learn frontend...')
+                  console.log('Do you want to learn backend...')
                   setTimeout(()=>{
-                    console.log('Do you want to learn frameWork...')
+                    console.log('Do you want to learn frontend...')
                     setTimeout(()=>{
-                      console.log('let learn Special langauge to use in backend as well as frontend...')
-                      resolve('JavaScript')
+                      console.log('Do you want to learn frameWork...')
+                      setTimeout(()=>{
+                        console.log('let learn Special langauge to use in backend as well as frontend...')
+                        resolve('JavaScript')
+                      },1000)
                     },1000)
                   },1000)
                 },1000)
               },1000)
-            },1000)
+            })
+          }
+        module.exports = libraryLanguage
+
+        const libraryLanguage = require('./library.js')
+
+        function learnlangauge(){
+          libraryLanguage().then((language)=>{
+            console.log('I want to start leaning {langauge}');
           })
         }
-      module.exports = libraryLanguage
 
-      const libraryLanguage = require('./library.js')
-
-      function learnlangauge(){
-        libraryLanguage().then((language)=>{
-          console.log('I want to start leaning {langauge}');
-        })
-      }
-
-      async function learnlanguage(){
-        let langauge = await libraryLanguage();
-        console.log('I Want to start learning {langauge}');
-      }
-      learnlangauge()
+        async function learnlanguage(){
+          let langauge = await libraryLanguage();
+          console.log('I Want to start learning {langauge}');
+        }
+        learnlangauge()
 
   # Writing async Functions
     - We’ve seen that the await keyword halts the execution of an async function until a promise is no longer pending. 
     - Don’t forget the await keyword! It may seem obvious, but this can be a tricky mistake to catch because our function will still run— it just won’t have the desired results.
 
-    We’re going to explore this using the following function, which returns a promise that resolves to 'Yay, I resolved!' after a 1 second delay:
+    - We’re going to explore this using the following function, which returns a promise that resolves to 'Yay, I resolved!' after a 1 second delay:
 
-      let myPromise = () => {
-        return new Promise((resolve, reject) => {
-          setTimeout(() => {
-            resolve('Yay, I resolved!')
-          }, 1000);
-        });
-      }
+          let myPromise = () => {
+            return new Promise((resolve, reject) => {
+              setTimeout(() => {
+                resolve('Yay, I resolved!')
+              }, 1000);
+            });
+          }
 
-    Now we’ll write two async functions which invoke myPromise():
-      async function noAwait() {
-      let value = myPromise();
-      console.log(value);
-      }
-      
-      async function yesAwait() {
-      let value = await myPromise();
-      console.log(value);
-      }
-      
-      noAwait(); // Prints: Promise { <-pending> }
-      yesAwait(); // Prints: Yay, I resolved!
+    - Now we’ll write two async functions which invoke myPromise():
+          async function noAwait() {
+          let value = myPromise();
+          console.log(value);
+          }
+          
+          async function yesAwait() {
+          let value = await myPromise();
+          console.log(value);
+          }
+          
+          noAwait(); // Prints: Promise { <-pending> }
+          yesAwait(); // Prints: Yay, I resolved!
 
-    In the first async function, noAwait(), we left off the await keyword before myPromise(). In the second, yesAwait(), we included it. The noAwait() function logs Promise { <-pending> } to the console. 
-    Without the await keyword, the function execution wasn’t paused. The console.log() on the following line was executed before the promise had resolved.
-    Remember that the await operator returns the resolved value of a promise. When used properly in yesAwait(), the variable value was assigned the resolved value of the myPromise() promise, 
-    whereas in noAwait(), value was assigned the promise object itself.
+      In the first async function, noAwait(), we left off the await keyword before myPromise(). In the second, yesAwait(), we included it. The noAwait() function logs Promise { <-pending> } to the console. 
+      Without the await keyword, the function execution wasn’t paused. The console.log() on the following line was executed before the promise had resolved.
+      Remember that the await operator returns the resolved value of a promise. When used properly in yesAwait(), the variable value was assigned the resolved value of the myPromise() promise, 
+      whereas in noAwait(), value was assigned the promise object itself.
 
-    Example
-        const shopForElectronics = () =>{
-          return new Promise((resolve,reject) => {
-            const electronics = ['Iphone','Samsung','Mac','Windows','Linux','Mouse','keyBoard']
-            setTimeout(()=>{
-              let randomIndex = Math.floor(Math.random()*7)
-              let electronic = electronics[randomIndex]
-              console.log('2. I bought {electronic} beacuse I want it.')
-              resolve(electronic);
-            },1000)
-          })
-        }
-        module.exports = shopForElectronics
-        const shopForElectronics = require('./library.js');
+    # Example
+          const shopForElectronics = () =>{
+            return new Promise((resolve,reject) => {
+              const electronics = ['Iphone','Samsung','Mac','Windows','Linux','Mouse','keyBoard']
+              setTimeout(()=>{
+                let randomIndex = Math.floor(Math.random()*7)
+                let electronic = electronics[randomIndex]
+                console.log('2. I bought {electronic} beacuse I want it.')
+                resolve(electronic);
+              },1000)
+            })
+          }
+          module.exports = shopForElectronics
+          const shopForElectronics = require('./library.js');
 
-        //Simple function
-        function getElectronics(){
-          console.log('1. Going to Bug electronics from Store...')
-          let value = shopForElectronics()
-          console.log('3. Great! I'm ahpppy to get {value}')
-        }
-        //Async await function
-        async function getElectronics(){
-          console.log('1. Going to Bug electronics from Store...')
-          let value = await shopForElectronics()
-          console.log('3. Great! I'm ahpppy to get {value}')
-        }
+          //Simple function
+          function getElectronics(){
+            console.log('1. Going to Bug electronics from Store...')
+            let value = shopForElectronics()
+            console.log('3. Great! I'm ahpppy to get {value}')
+          }
+          //Async await function
+          async function getElectronics(){
+            console.log('1. Going to Bug electronics from Store...')
+            let value = await shopForElectronics()
+            console.log('3. Great! I'm ahpppy to get {value}')
+          }
 
-        getElectronics()
+          getElectronics()
 
   # Handling Dependent Promises
     - The true beauty of async...await is when we have a series of asynchronous actions which depend on one another. For example, we may make a network request based on a query to a database. 
@@ -2529,36 +2528,36 @@ const asyncAwait = () => {
     - but we can also catch both synchronous and asynchronous errors. This makes for easier debugging!
 
         async function usingTryCatch() {
-        try {
-          let resolveValue = await asyncFunction('thing that will fail');
-          let secondValue = await secondAsyncFunction(resolveValue);
-        } catch (err) {
-          // Catches any errors in the try block
-          console.log(err);
-        }
+          try {
+            let resolveValue = await asyncFunction('thing that will fail');
+            let secondValue = await secondAsyncFunction(resolveValue);
+          } catch (err) {
+            // Catches any errors in the try block
+            console.log(err);
+          }
         }
         
         usingTryCatch();
 
     - Remember, since async functions return promises we can still use native promise’s .catch() with an async function
 
-      async function usingPromiseCatch() {
-        let resolveValue = await asyncFunction('thing that will fail');
-      }
-      
-      let rejectedPromise = usingPromiseCatch();
-      rejectedPromise.catch((rejectValue) => {
-      console.log(rejectValue);
-      })
-
-    -> Example
-        let randomSuccess = () => {
-        let num = Math.random();
-        if (num < .5 ){
-          return true;
-        } else {
-          return false;
+        async function usingPromiseCatch() {
+          let resolveValue = await asyncFunction('thing that will fail');
         }
+        
+        let rejectedPromise = usingPromiseCatch();
+        rejectedPromise.catch((rejectValue) => {
+          console.log(rejectValue);
+        })
+
+    - Example
+        let randomSuccess = () => {
+          let num = Math.random();
+          if (num < .5 ){
+            return true;
+          } else {
+            return false;
+          }
         };
 
   # Handling Independent Promises
